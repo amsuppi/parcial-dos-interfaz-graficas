@@ -1,6 +1,5 @@
-package interfaz.grafica.Interfaces;
+package modelo;
 
-import interfaz.grafica.Modelos.Ecosistema;
 
 /**
  * Contrato para las entidades que pueden reproducirse (Planta y Conejo).

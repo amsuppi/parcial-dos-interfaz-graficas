@@ -2,11 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package interfaz.grafica.Entidades;
+package modelo;
 
-import interfaz.grafica.Interfaces.Mortal;
-import interfaz.grafica.Interfaces.Reproducible;
-import interfaz.grafica.Modelos.Ecosistema;
 
 /**
  *

@@ -1,4 +1,4 @@
-package interfaz.grafica.Modelos;
+package modelo;
 
 /**
  * Enum con los 4 climas posibles. Cada clima guarda sus efectos,

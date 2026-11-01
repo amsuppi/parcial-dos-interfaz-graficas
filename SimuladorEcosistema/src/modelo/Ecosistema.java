@@ -1,11 +1,5 @@
-package interfaz.grafica.Modelos;
+package modelo;
 
-import interfaz.grafica.Entidades.Conejo;
-import interfaz.grafica.Entidades.Entidad;
-import interfaz.grafica.Entidades.Lobo;
-import interfaz.grafica.Entidades.Planta;
-import interfaz.grafica.Interfaces.Mortal;
-import interfaz.grafica.Interfaces.Reproducible;
 import java.util.ArrayList;
 import java.util.Random;
 
