@@ -2,9 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package interfaz.grafica.Entidades;
+package modelo;
 
-import interfaz.grafica.Modelos.Ecosistema;
 
 /**
  *
@@ -25,8 +24,9 @@ public abstract class Animal extends Entidad {
     
     public abstract void comer(Ecosistema eco);
 
-    public void moverse() {
-        System.out.println(getNombre() + " se desplazó.");
+    /** Devuelve el texto del movimiento; el modelo no imprime nada. */
+    public String moverse() {
+        return getNombre() + " se desplazó.";
     }
 
     public int getVelocidad() {

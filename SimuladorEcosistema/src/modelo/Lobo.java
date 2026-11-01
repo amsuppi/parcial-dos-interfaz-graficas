@@ -2,10 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package interfaz.grafica.Entidades;
+package modelo;
 
-import interfaz.grafica.Modelos.Ecosistema;
-import interfaz.grafica.Interfaces.Mortal;
 
 public class Lobo extends Animal implements Mortal {
 
@@ -59,10 +57,8 @@ public class Lobo extends Animal implements Mortal {
     }
 
     @Override
-    public void mostrarEstado() {
-        System.out.println("Lobo: " + getNombre()
-                + " | Energía: " + getEnergia()
-                + " | Cacerías exitosas: " + exitosCaza);
+    public String describirEstado() {
+        return exitosCaza + (exitosCaza == 1 ? " cacería" : " cacerías");
     }
 
     @Override

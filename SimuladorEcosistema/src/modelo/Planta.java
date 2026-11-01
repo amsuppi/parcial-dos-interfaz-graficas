@@ -2,10 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package interfaz.grafica.Entidades;
+package modelo;
 
-import interfaz.grafica.Interfaces.Reproducible;
-import interfaz.grafica.Modelos.Ecosistema;
 
 public class Planta extends Entidad implements Reproducible {
 
@@ -37,10 +35,8 @@ public class Planta extends Entidad implements Reproducible {
     }
 
     @Override
-    public void mostrarEstado() {
-        System.out.println("Planta: " + getNombre()
-                + " | Tamaño: " + tamanio
-                + " | Energía: " + getEnergia());
+    public String describirEstado() {
+        return "Tamaño " + tamanio;
     }
 
     /** Solo mira la energía propia; el clima se evalúa en reproducirse(), donde hay acceso al ecosistema. */

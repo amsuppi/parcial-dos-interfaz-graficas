@@ -2,9 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package interfaz.grafica.Entidades;
+package modelo;
 
-import interfaz.grafica.Modelos.Ecosistema;
 
 /**
  *
@@ -26,7 +25,13 @@ public abstract class Entidad {
 
     public abstract void actuar(Ecosistema eco);
 
-    public abstract void mostrarEstado();
+    /** Cada subclase describe su estado a su manera (polimorfismo). Devuelve texto, no imprime. */
+    public abstract String describirEstado();
+
+    /** Tipo de entidad para mostrar en la tabla: "Planta", "Conejo" o "Lobo". */
+    public String getTipo() {
+        return getClass().getSimpleName();
+    }
 
     public void envejecer() {
         edad++;

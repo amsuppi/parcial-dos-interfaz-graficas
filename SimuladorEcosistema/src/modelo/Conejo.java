@@ -2,11 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package interfaz.grafica.Entidades;
+package modelo;
 
-import interfaz.grafica.Interfaces.Mortal;
-import interfaz.grafica.Interfaces.Reproducible;
-import interfaz.grafica.Modelos.Ecosistema;
 
 /**
  *
@@ -49,10 +46,8 @@ public class Conejo extends Animal implements Reproducible, Mortal {
     }
 
     @Override
-    public void mostrarEstado() {
-        System.out.println("Conejo: " + getNombre()
-                + " | Energía: " + getEnergia()
-                + " | En peligro: " + (enPeligro() ? "sí" : "no"));
+    public String describirEstado() {
+        return enPeligro() ? "En peligro" : "Normal";
     }
 
     /** Solo mira la energía propia; que haya otro conejo se evalúa en reproducirse(), donde hay acceso al ecosistema. */
