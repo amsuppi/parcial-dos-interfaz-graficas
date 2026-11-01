@@ -24,8 +24,9 @@ public abstract class Animal extends Entidad {
     
     public abstract void comer(Ecosistema eco);
 
-    public void moverse() {
-        System.out.println(getNombre() + " se desplazó.");
+    /** Devuelve el texto del movimiento; el modelo no imprime nada. */
+    public String moverse() {
+        return getNombre() + " se desplazó.";
     }
 
     public int getVelocidad() {

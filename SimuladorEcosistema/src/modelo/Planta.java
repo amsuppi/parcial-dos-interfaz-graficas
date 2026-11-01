@@ -35,10 +35,8 @@ public class Planta extends Entidad implements Reproducible {
     }
 
     @Override
-    public void mostrarEstado() {
-        System.out.println("Planta: " + getNombre()
-                + " | Tamaño: " + tamanio
-                + " | Energía: " + getEnergia());
+    public String describirEstado() {
+        return "Tamaño " + tamanio;
     }
 
     /** Solo mira la energía propia; el clima se evalúa en reproducirse(), donde hay acceso al ecosistema. */

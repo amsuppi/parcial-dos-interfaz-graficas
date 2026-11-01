@@ -46,10 +46,8 @@ public class Conejo extends Animal implements Reproducible, Mortal {
     }
 
     @Override
-    public void mostrarEstado() {
-        System.out.println("Conejo: " + getNombre()
-                + " | Energía: " + getEnergia()
-                + " | En peligro: " + (enPeligro() ? "sí" : "no"));
+    public String describirEstado() {
+        return enPeligro() ? "En peligro" : "Normal";
     }
 
     /** Solo mira la energía propia; que haya otro conejo se evalúa en reproducirse(), donde hay acceso al ecosistema. */

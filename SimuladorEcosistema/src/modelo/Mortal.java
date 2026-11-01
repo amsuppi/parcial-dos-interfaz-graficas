@@ -10,17 +10,19 @@ public interface Mortal {
 
     void morir();
 
-    default void verificarMuerte() {
+    /**
+     * Si la entidad se quedó sin energía, muere. Devuelve true si murió en esta
+     * verificación, así el Ecosistema registra el evento (el modelo no imprime).
+     */
+    default boolean verificarMuerte() {
         if (this instanceof Entidad) {
-            Entidad entidad =
-                    (Entidad) this;
-
+            Entidad entidad = (Entidad) this;
             if (entidad.getEnergia() <= 0 && entidad.isViva()) {
                 morir();
-                System.out.println(entidad.getClass().getSimpleName() + " '"
-                        + entidad.getNombre() + "' murió de inanición");
+                return true;
             }
         }
+        return false;
     }
     
 }

@@ -57,10 +57,8 @@ public class Lobo extends Animal implements Mortal {
     }
 
     @Override
-    public void mostrarEstado() {
-        System.out.println("Lobo: " + getNombre()
-                + " | Energía: " + getEnergia()
-                + " | Cacerías exitosas: " + exitosCaza);
+    public String describirEstado() {
+        return exitosCaza + (exitosCaza == 1 ? " cacería" : " cacerías");
     }
 
     @Override
