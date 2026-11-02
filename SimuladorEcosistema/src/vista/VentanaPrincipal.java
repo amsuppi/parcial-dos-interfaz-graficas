@@ -90,15 +90,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         panelConfiguracion = new vista.PanelConfiguracion();
-        panelReporte = new vista.PanelReporte();
         panelSimulacion = new vista.PanelSimulacion();
+        panelReporte = new vista.PanelReporte();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Simulador de Ecosistema");
+        setMinimumSize(new java.awt.Dimension(800, 600));
+        setPreferredSize(new java.awt.Dimension(900, 650));
         getContentPane().setLayout(new java.awt.CardLayout());
         getContentPane().add(panelConfiguracion, "configuracion");
-        getContentPane().add(panelReporte, "reporte");
         getContentPane().add(panelSimulacion, "simulacion");
+        getContentPane().add(panelReporte, "reporte");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

@@ -34,25 +34,40 @@ public class SimulacionController {
 
     /** Al abrir la app: si hay una simulación guardada la retoma; si no, muestra la configuración. */
     public void iniciarAplicacion() {
-        if (dao.existeGuardado()) {
-            Ecosistema cargado = dao.cargar();
-            if (cargado != null) {
-                eco = cargado;
-                actualizarVistaSimulacion();
-                vista.mostrarPantallaSimulacion();
-                if (eco.simulacionTerminada()) {
-                    vista.mostrarEstadoApp("Se cargó una simulación ya terminada. Podés ver el reporte final.");
-                } else {
-                    vista.mostrarEstadoApp("Se retomó la simulación guardada en el turno " + eco.getTurnoActual() + ".");
-                }
-                return;
-            }
-            dao.borrar();
-            vista.mostrarError("El archivo guardado estaba dañado y no se pudo cargar. Se empieza una simulación nueva.");
+        if (dao.existeGuardado() && retomarGuardada()) {
+            return;
         }
         vista.getPanelSimulacion().mostrarSinSimulacion();
         vista.mostrarPantallaConfiguracion();
         vista.mostrarEstadoApp("Configurá el ecosistema para empezar.");
+    }
+
+    /** Botón "Cargar guardada" de la pantalla de configuración. */
+    public void cargarSimulacionGuardada() {
+        if (!dao.existeGuardado()) {
+            vista.mostrarError("No hay ninguna simulación guardada.");
+            return;
+        }
+        retomarGuardada();
+    }
+
+    /** Lee el archivo con el DAO y muestra la simulación. Devuelve false si el archivo estaba dañado. */
+    private boolean retomarGuardada() {
+        Ecosistema cargado = dao.cargar();
+        if (cargado == null) {
+            dao.borrar();
+            vista.mostrarError("El archivo guardado estaba dañado y no se pudo cargar. Empezá una simulación nueva.");
+            return false;
+        }
+        eco = cargado;
+        actualizarVistaSimulacion();
+        vista.mostrarPantallaSimulacion();
+        if (eco.simulacionTerminada()) {
+            vista.mostrarEstadoApp("Se cargó una simulación ya terminada. Podés ver el reporte final.");
+        } else {
+            vista.mostrarEstadoApp("Se retomó la simulación guardada en el turno " + eco.getTurnoActual() + ".");
+        }
+        return true;
     }
 
     //  CONFIGURACIÓN
@@ -72,7 +87,7 @@ public class SimulacionController {
 
         if (cantPlantas == null || cantConejos == null || cantLobos == null
                 || cantTurnos == null || climaInicial == null) {
-            vista.mostrarEstadoApp("Revisá los campos marcados en rojo.");
+            vista.mostrarEstadoApp("Hay datos inválidos. Corregí los campos marcados.");
             return;
         }
 
