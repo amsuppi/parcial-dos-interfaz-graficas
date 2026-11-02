@@ -1,19 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package vista;
 
 import controlador.SimulacionController;
 
 /**
- * Pantalla de configuración inicial. Solo recoge los datos y se los pasa al controlador, que los valida.
+ * Pantalla de configuración inicial. Solo recoge los datos y se los pasa al
+ * controlador, que es quien los valida. Muestra los errores que el controlador le indica.
  */
 public class PanelConfiguracion extends javax.swing.JPanel {
 
-    /**
-     * Creates new form PanelConfiguracion
-     */
     private SimulacionController controlador;
 
     public PanelConfiguracion() {
@@ -24,21 +18,35 @@ public class PanelConfiguracion extends javax.swing.JPanel {
         this.controlador = controlador;
     }
 
-    /** Muestra el error de validación debajo del campo indicado ("plantas", "conejos", "lobos", "turnos", "clima"). */
+    /** Muestra el error de validación debajo del campo indicado. */
     public void mostrarErrorCampo(String campo, String mensaje) {
-        // TODO: completar cuando estén los componentes del diseñador
+        switch (campo) {
+            case "plantas": lblErrorPlantas.setText(mensaje); break;
+            case "conejos": lblErrorConejos.setText(mensaje); break;
+            case "lobos":   lblErrorLobos.setText(mensaje); break;
+            case "turnos":  lblErrorTurnos.setText(mensaje); break;
+            default:        mostrarEstado(mensaje); // el combo de clima siempre tiene un valor elegido
+        }
     }
 
     public void limpiarErrores() {
-        // TODO: completar cuando estén los componentes del diseñador
+        lblErrorPlantas.setText(" ");
+        lblErrorConejos.setText(" ");
+        lblErrorLobos.setText(" ");
+        lblErrorTurnos.setText(" ");
     }
 
     public void limpiarFormulario() {
-        // TODO: completar cuando estén los componentes del diseñador
+        txtPlantas.setText("");
+        txtConejos.setText("");
+        txtLobos.setText("");
+        txtTurnos.setText("");
+        cmbClima.setSelectedIndex(0);
+        limpiarErrores();
     }
 
     public void mostrarEstado(String mensaje) {
-        // TODO: completar cuando estén los componentes del diseñador
+        lblEstado.setText(mensaje);
     }
 
     /**
@@ -50,19 +58,226 @@ public class PanelConfiguracion extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        pnlFormulario = new javax.swing.JPanel();
+        lblTitulo = new javax.swing.JLabel();
+        lblPlantas = new javax.swing.JLabel();
+        txtPlantas = new javax.swing.JTextField();
+        lblErrorPlantas = new javax.swing.JLabel();
+        lblConejos = new javax.swing.JLabel();
+        txtConejos = new javax.swing.JTextField();
+        lblErrorConejos = new javax.swing.JLabel();
+        lblLobos = new javax.swing.JLabel();
+        txtLobos = new javax.swing.JTextField();
+        lblErrorLobos = new javax.swing.JLabel();
+        lblClima = new javax.swing.JLabel();
+        cmbClima = new javax.swing.JComboBox<>();
+        lblTurnos = new javax.swing.JLabel();
+        txtTurnos = new javax.swing.JTextField();
+        lblErrorTurnos = new javax.swing.JLabel();
+        btnIniciar = new javax.swing.JButton();
+        btnCargar = new javax.swing.JButton();
+        lblEstado = new javax.swing.JLabel();
+
+        setBackground(new java.awt.Color(245, 245, 245));
+
+        pnlFormulario.setBackground(new java.awt.Color(255, 255, 255));
+        pnlFormulario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(220, 220, 220)));
+
+        lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(31, 41, 55));
+        lblTitulo.setText("Nueva simulación");
+
+        lblPlantas.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblPlantas.setForeground(new java.awt.Color(55, 65, 81));
+        lblPlantas.setText("Plantas (5 a 30)");
+
+        txtPlantas.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+
+        lblErrorPlantas.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        lblErrorPlantas.setForeground(new java.awt.Color(211, 47, 47));
+        lblErrorPlantas.setText(" ");
+
+        lblConejos.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblConejos.setForeground(new java.awt.Color(55, 65, 81));
+        lblConejos.setText("Conejos (2 a 15)");
+
+        txtConejos.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+
+        lblErrorConejos.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        lblErrorConejos.setForeground(new java.awt.Color(211, 47, 47));
+        lblErrorConejos.setText(" ");
+
+        lblLobos.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblLobos.setForeground(new java.awt.Color(55, 65, 81));
+        lblLobos.setText("Lobos (1 a 5)");
+
+        txtLobos.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+
+        lblErrorLobos.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        lblErrorLobos.setForeground(new java.awt.Color(211, 47, 47));
+        lblErrorLobos.setText(" ");
+
+        lblClima.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblClima.setForeground(new java.awt.Color(55, 65, 81));
+        lblClima.setText("Clima inicial");
+
+        cmbClima.setBackground(new java.awt.Color(252, 252, 252));
+        cmbClima.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        cmbClima.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Soleado", "Lluvioso", "Sequía", "Invierno" }));
+
+        lblTurnos.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblTurnos.setForeground(new java.awt.Color(55, 65, 81));
+        lblTurnos.setText("Turnos totales (10 a 50)");
+
+        txtTurnos.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+
+        lblErrorTurnos.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        lblErrorTurnos.setForeground(new java.awt.Color(211, 47, 47));
+        lblErrorTurnos.setText(" ");
+
+        btnIniciar.setBackground(new java.awt.Color(46, 125, 50));
+        btnIniciar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnIniciar.setForeground(new java.awt.Color(255, 255, 255));
+        btnIniciar.setText("Iniciar simulación");
+        btnIniciar.setFocusPainted(false);
+        btnIniciar.addActionListener(this::btnIniciarActionPerformed);
+
+        btnCargar.setBackground(new java.awt.Color(255, 255, 255));
+        btnCargar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnCargar.setForeground(new java.awt.Color(46, 125, 50));
+        btnCargar.setText("Cargar guardada");
+        btnCargar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(46, 125, 50)));
+        btnCargar.setFocusPainted(false);
+        btnCargar.addActionListener(this::btnCargarActionPerformed);
+
+        javax.swing.GroupLayout pnlFormularioLayout = new javax.swing.GroupLayout(pnlFormulario);
+        pnlFormulario.setLayout(pnlFormularioLayout);
+        pnlFormularioLayout.setHorizontalGroup(
+            pnlFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlFormularioLayout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(pnlFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTitulo)
+                    .addGroup(pnlFormularioLayout.createSequentialGroup()
+                        .addGroup(pnlFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblPlantas)
+                            .addComponent(txtPlantas, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblErrorPlantas, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblLobos)
+                            .addComponent(txtLobos, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblErrorLobos, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblTurnos)
+                            .addComponent(txtTurnos, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblErrorTurnos, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(32, 32, 32)
+                        .addGroup(pnlFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblConejos)
+                            .addComponent(txtConejos, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblErrorConejos, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblClima)
+                            .addComponent(cmbClima, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pnlFormularioLayout.createSequentialGroup()
+                        .addComponent(btnIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(btnCargar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(32, 32, 32))
+        );
+        pnlFormularioLayout.setVerticalGroup(
+            pnlFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlFormularioLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(lblTitulo)
+                .addGap(20, 20, 20)
+                .addGroup(pnlFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblPlantas)
+                    .addComponent(lblConejos))
+                .addGap(6, 6, 6)
+                .addGroup(pnlFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtPlantas, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtConejos, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(4, 4, 4)
+                .addGroup(pnlFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblErrorPlantas)
+                    .addComponent(lblErrorConejos))
+                .addGap(12, 12, 12)
+                .addGroup(pnlFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblLobos)
+                    .addComponent(lblClima))
+                .addGap(6, 6, 6)
+                .addGroup(pnlFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtLobos, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbClima, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(4, 4, 4)
+                .addComponent(lblErrorLobos)
+                .addGap(12, 12, 12)
+                .addComponent(lblTurnos)
+                .addGap(6, 6, 6)
+                .addComponent(txtTurnos, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
+                .addComponent(lblErrorTurnos)
+                .addGap(24, 24, 24)
+                .addGroup(pnlFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCargar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28))
+        );
+
+        lblEstado.setBackground(new java.awt.Color(232, 240, 233));
+        lblEstado.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lblEstado.setForeground(new java.awt.Color(55, 65, 81));
+        lblEstado.setText(" ");
+        lblEstado.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 12, 0, 12));
+        lblEstado.setOpaque(true);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 182, Short.MAX_VALUE)
+                .addComponent(pnlFormulario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 182, Short.MAX_VALUE))
+            .addComponent(lblEstado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 90, Short.MAX_VALUE)
+                .addComponent(pnlFormulario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 90, Short.MAX_VALUE)
+                .addComponent(lblEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
+        controlador.iniciarSimulacion(txtPlantas.getText(), txtConejos.getText(), txtLobos.getText(),
+                (String) cmbClima.getSelectedItem(), txtTurnos.getText());
+    }//GEN-LAST:event_btnIniciarActionPerformed
+
+    private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
+        controlador.cargarSimulacionGuardada();
+    }//GEN-LAST:event_btnCargarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCargar;
+    private javax.swing.JButton btnIniciar;
+    private javax.swing.JComboBox<String> cmbClima;
+    private javax.swing.JLabel lblClima;
+    private javax.swing.JLabel lblConejos;
+    private javax.swing.JLabel lblErrorConejos;
+    private javax.swing.JLabel lblErrorLobos;
+    private javax.swing.JLabel lblErrorPlantas;
+    private javax.swing.JLabel lblErrorTurnos;
+    private javax.swing.JLabel lblEstado;
+    private javax.swing.JLabel lblLobos;
+    private javax.swing.JLabel lblPlantas;
+    private javax.swing.JLabel lblTitulo;
+    private javax.swing.JLabel lblTurnos;
+    private javax.swing.JPanel pnlFormulario;
+    private javax.swing.JTextField txtConejos;
+    private javax.swing.JTextField txtLobos;
+    private javax.swing.JTextField txtPlantas;
+    private javax.swing.JTextField txtTurnos;
     // End of variables declaration//GEN-END:variables
 }

@@ -34,25 +34,40 @@ public class SimulacionController {
 
     /** Al abrir la app: si hay una simulación guardada la retoma; si no, muestra la configuración. */
     public void iniciarAplicacion() {
-        if (dao.existeGuardado()) {
-            Ecosistema cargado = dao.cargar();
-            if (cargado != null) {
-                eco = cargado;
-                actualizarVistaSimulacion();
-                vista.mostrarPantallaSimulacion();
-                if (eco.simulacionTerminada()) {
-                    vista.mostrarEstadoApp("Se cargó una simulación ya terminada. Podés ver el reporte final.");
-                } else {
-                    vista.mostrarEstadoApp("Se retomó la simulación guardada en el turno " + eco.getTurnoActual() + ".");
-                }
-                return;
-            }
-            dao.borrar();
-            vista.mostrarError("El archivo guardado estaba dañado y no se pudo cargar. Se empieza una simulación nueva.");
+        if (dao.existeGuardado() && retomarGuardada()) {
+            return;
         }
-        vista.getPanelSimulacion().mostrarSinSimulacion();
+        mostrarSinSimulacion();
         vista.mostrarPantallaConfiguracion();
         vista.mostrarEstadoApp("Configurá el ecosistema para empezar.");
+    }
+
+    /** Botón "Cargar guardada" de la pantalla de configuración. */
+    public void cargarSimulacionGuardada() {
+        if (!dao.existeGuardado()) {
+            vista.mostrarError("No hay ninguna simulación guardada.");
+            return;
+        }
+        retomarGuardada();
+    }
+
+    /** Lee el archivo con el DAO y muestra la simulación. Devuelve false si el archivo estaba dañado. */
+    private boolean retomarGuardada() {
+        Ecosistema cargado = dao.cargar();
+        if (cargado == null) {
+            dao.borrar();
+            vista.mostrarError("El archivo guardado estaba dañado y no se pudo cargar. Empezá una simulación nueva.");
+            return false;
+        }
+        eco = cargado;
+        actualizarVistaSimulacion();
+        vista.mostrarPantallaSimulacion();
+        if (eco.simulacionTerminada()) {
+            vista.mostrarEstadoApp("Se cargó una simulación ya terminada. Podés ver el reporte final.");
+        } else {
+            vista.mostrarEstadoApp("Se retomó la simulación guardada en el turno " + eco.getTurnoActual() + ".");
+        }
+        return true;
     }
 
     //  CONFIGURACIÓN
@@ -72,7 +87,7 @@ public class SimulacionController {
 
         if (cantPlantas == null || cantConejos == null || cantLobos == null
                 || cantTurnos == null || climaInicial == null) {
-            vista.mostrarEstadoApp("Revisá los campos marcados en rojo.");
+            vista.mostrarEstadoApp("Hay datos inválidos. Corregí los campos marcados.");
             return;
         }
 
@@ -204,14 +219,22 @@ public class SimulacionController {
         return eco != null && !eco.simulacionTerminada();
     }
 
-    /** Descarta la simulación actual (la vista ya pidió confirmación si hacía falta). */
+    /** Botón o menú "Nueva simulación": si hay una en curso, primero pide confirmación. */
+    public void solicitarNuevaSimulacion() {
+        if (haySimulacionEnCurso() && !vista.confirmarNuevaSimulacion()) {
+            return;
+        }
+        nuevaSimulacion();
+    }
+
+    /** Descarta la simulación actual y vuelve a la configuración. */
     public void nuevaSimulacion() {
         eco = null;
         if (!dao.borrar()) {
             vista.mostrarError("No se pudo borrar el archivo de la simulación anterior.");
         }
         vista.getPanelConfiguracion().limpiarFormulario();
-        vista.getPanelSimulacion().mostrarSinSimulacion();
+        mostrarSinSimulacion();
         vista.mostrarPantallaConfiguracion();
         vista.mostrarEstadoApp("Configurá el ecosistema para empezar.");
     }
@@ -231,10 +254,10 @@ public class SimulacionController {
         vista.mostrarPantallaReporte();
     }
 
-    /** La vista lo usa para habilitar u ocultar el menú/botón de simulación. */
+    /** Menú "Ir a la simulación". */
     public void irASimulacion() {
         if (eco == null) {
-            vista.getPanelSimulacion().mostrarSinSimulacion();
+            mostrarSinSimulacion();
         } else {
             actualizarVistaSimulacion();
         }
@@ -242,6 +265,11 @@ public class SimulacionController {
     }
 
     //  AUXILIARES
+
+    private void mostrarSinSimulacion() {
+        vista.getPanelSimulacion().mostrarSinSimulacion();
+        vista.habilitarReporte(false);
+    }
 
     private void guardar() {
         if (!dao.guardar(eco)) {
@@ -260,26 +288,26 @@ public class SimulacionController {
         boolean puede = eco.puedeIntervenir();
         String disponibilidad;
         if (eco.simulacionTerminada()) {
-            disponibilidad = "Simulación terminada";
+            disponibilidad = "simulación terminada";
         } else if (puede) {
-            disponibilidad = "Intervención disponible en este turno";
+            disponibilidad = "disponible ahora (cada 3 turnos)";
         } else {
             int faltan = Ecosistema.TURNOS_ENTRE_INTERVENCIONES - (eco.getTurnoActual() % Ecosistema.TURNOS_ENTRE_INTERVENCIONES);
-            disponibilidad = "Próxima intervención en " + faltan + (faltan == 1 ? " turno" : " turnos");
+            disponibilidad = "próxima en " + faltan + (faltan == 1 ? " turno" : " turnos");
         }
         vista.getPanelSimulacion().habilitarIntervencion(puede, disponibilidad, eco.puedeAgregarLobo());
         vista.getPanelSimulacion().habilitarAvanzar(!eco.simulacionTerminada());
         vista.habilitarReporte(eco.simulacionTerminada());
     }
 
-    /** Filas {tipo, nombre, energía, edad, estado} de las entidades vivas. */
+    /** Filas {tipo, nombre, edad, energía, estado} de las entidades vivas. */
     private String[][] filasEntidades() {
         List<Entidad> vivas = new ArrayList<>(eco.getEntidadesVivas());
         String[][] filas = new String[vivas.size()][];
         for (int i = 0; i < vivas.size(); i++) {
             Entidad e = vivas.get(i);
-            filas[i] = new String[]{e.getTipo(), e.getNombre(), String.valueOf((int) e.getEnergia()),
-                String.valueOf(e.getEdad()), e.describirEstado()};
+            filas[i] = new String[]{e.getTipo(), e.getNombre(), String.valueOf(e.getEdad()),
+                String.valueOf((int) e.getEnergia()), e.describirEstado()};
         }
         return filas;
     }
