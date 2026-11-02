@@ -275,26 +275,26 @@ public class SimulacionController {
         boolean puede = eco.puedeIntervenir();
         String disponibilidad;
         if (eco.simulacionTerminada()) {
-            disponibilidad = "Simulación terminada";
+            disponibilidad = "simulación terminada";
         } else if (puede) {
-            disponibilidad = "Intervención disponible en este turno";
+            disponibilidad = "disponible ahora (cada 3 turnos)";
         } else {
             int faltan = Ecosistema.TURNOS_ENTRE_INTERVENCIONES - (eco.getTurnoActual() % Ecosistema.TURNOS_ENTRE_INTERVENCIONES);
-            disponibilidad = "Próxima intervención en " + faltan + (faltan == 1 ? " turno" : " turnos");
+            disponibilidad = "próxima en " + faltan + (faltan == 1 ? " turno" : " turnos");
         }
         vista.getPanelSimulacion().habilitarIntervencion(puede, disponibilidad, eco.puedeAgregarLobo());
         vista.getPanelSimulacion().habilitarAvanzar(!eco.simulacionTerminada());
         vista.habilitarReporte(eco.simulacionTerminada());
     }
 
-    /** Filas {tipo, nombre, energía, edad, estado} de las entidades vivas. */
+    /** Filas {tipo, nombre, edad, energía, estado} de las entidades vivas. */
     private String[][] filasEntidades() {
         List<Entidad> vivas = new ArrayList<>(eco.getEntidadesVivas());
         String[][] filas = new String[vivas.size()][];
         for (int i = 0; i < vivas.size(); i++) {
             Entidad e = vivas.get(i);
-            filas[i] = new String[]{e.getTipo(), e.getNombre(), String.valueOf((int) e.getEnergia()),
-                String.valueOf(e.getEdad()), e.describirEstado()};
+            filas[i] = new String[]{e.getTipo(), e.getNombre(), String.valueOf(e.getEdad()),
+                String.valueOf((int) e.getEnergia()), e.describirEstado()};
         }
         return filas;
     }

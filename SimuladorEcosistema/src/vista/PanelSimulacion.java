@@ -1,20 +1,17 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package vista;
 
 import controlador.SimulacionController;
 import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
- * Pantalla de la simulación en curso: contadores, tabla de entidades, eventos e intervención.
+ * Pantalla de la simulación en curso: contadores, tabla de entidades vivas,
+ * eventos del turno e intervención. Solo muestra lo que le pasa el controlador
+ * y le avisa de cada acción de la persona.
  */
 public class PanelSimulacion extends javax.swing.JPanel {
 
-    /**
-     * Creates new form PanelSimulacion
-     */
     private SimulacionController controlador;
 
     public PanelSimulacion() {
@@ -25,38 +22,68 @@ public class PanelSimulacion extends javax.swing.JPanel {
         this.controlador = controlador;
     }
 
-    /** Estado vacío: todavía no hay una simulación en curso. */
+    /** Estado vacío: todavía no hay una simulación en curso (pantalla 03 del Figma). */
     public void mostrarSinSimulacion() {
-        // TODO: completar cuando estén los componentes del diseñador
+        lblTurno.setText("\u2014");
+        lblClima.setText("\u2014");
+        lblPlantas.setText("\u2014");
+        lblConejos.setText("\u2014");
+        lblLobos.setText("\u2014");
+        ((DefaultTableModel) tblEntidades.getModel()).setRowCount(0);
+        lblSinSimulacion.setText("No hay una simulación en curso.");
+        lstEventos.setListData(new String[]{"Sin eventos todavía."});
+        habilitarIntervencion(false, "no disponible", false);
+        habilitarAvanzar(false);
+        habilitarReporte(false);
+        mostrarEstado("No hay una simulación en curso.");
     }
 
     public void mostrarResumen(int turno, int turnosTotales, String clima, int plantas, int conejos, int lobos) {
-        // TODO: completar cuando estén los componentes del diseñador
+        lblTurno.setText(turno + " / " + turnosTotales);
+        lblClima.setText(clima);
+        lblPlantas.setText(String.valueOf(plantas));
+        lblConejos.setText(String.valueOf(conejos));
+        lblLobos.setText(String.valueOf(lobos));
+        lblSinSimulacion.setText((plantas + conejos + lobos) + " entidades vivas");
     }
 
-    /** Filas {tipo, nombre, energía, edad, estado}. */
+    /** Filas {tipo, nombre, edad, energía, estado}. */
     public void mostrarEntidades(String[][] filas) {
-        // TODO: completar cuando estén los componentes del diseñador
+        DefaultTableModel datosTabla = (DefaultTableModel) tblEntidades.getModel();
+        datosTabla.setRowCount(0);
+        for (String[] fila : filas) {
+            datosTabla.addRow(fila);
+        }
     }
 
+    /** Cada evento se muestra en su propia fila, con salto de línea si es largo. */
     public void mostrarEventos(List<String> eventos) {
-        // TODO: completar cuando estén los componentes del diseñador
+        String[] filas = new String[eventos.size()];
+        for (int i = 0; i < eventos.size(); i++) {
+            filas[i] = "<html><body style='width:190px; padding:3px 0'>" + eventos.get(i) + "</body></html>";
+        }
+        lstEventos.setListData(filas);
     }
 
     public void habilitarIntervencion(boolean habilitada, String disponibilidad, boolean puedeAgregarLobo) {
-        // TODO: completar cuando estén los componentes del diseñador
+        lblIntervencion.setText("<html><b>Intervención</b> \u2014 " + disponibilidad + "</html>");
+        cmbClima.setEnabled(habilitada);
+        btnCambiarClima.setEnabled(habilitada);
+        cmbEntidad.setEnabled(habilitada);
+        btnAgregar.setEnabled(habilitada);
     }
 
     public void habilitarAvanzar(boolean habilitado) {
-        // TODO: completar cuando estén los componentes del diseñador
+        btnAvanzar.setEnabled(habilitado);
     }
 
+    /** El reporte final se habilita recién cuando termina la simulación. */
     public void habilitarReporte(boolean habilitado) {
-        // TODO: completar cuando estén los componentes del diseñador
+        btnVerReporte.setEnabled(habilitado);
     }
 
     public void mostrarEstado(String mensaje) {
-        // TODO: completar cuando estén los componentes del diseñador
+        lblEstado.setText(mensaje);
     }
 
     /**
@@ -68,19 +95,554 @@ public class PanelSimulacion extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        pnlIndTurno = new javax.swing.JPanel();
+        lblTituloTurno = new javax.swing.JLabel();
+        lblTurno = new javax.swing.JLabel();
+        pnlIndClima = new javax.swing.JPanel();
+        lblTituloClima = new javax.swing.JLabel();
+        lblClima = new javax.swing.JLabel();
+        pnlIndPlantas = new javax.swing.JPanel();
+        lblTituloPlantas = new javax.swing.JLabel();
+        lblPlantas = new javax.swing.JLabel();
+        pnlIndConejos = new javax.swing.JPanel();
+        lblTituloConejos = new javax.swing.JLabel();
+        lblConejos = new javax.swing.JLabel();
+        pnlIndLobos = new javax.swing.JPanel();
+        lblTituloLobos = new javax.swing.JLabel();
+        lblLobos = new javax.swing.JLabel();
+        pnlEntidades = new javax.swing.JPanel();
+        lblTituloEntidades = new javax.swing.JLabel();
+        scrEntidades = new javax.swing.JScrollPane();
+        tblEntidades = new javax.swing.JTable();
+        lblSinSimulacion = new javax.swing.JLabel();
+        btnIrConfiguracion = new javax.swing.JButton();
+        pnlEventos = new javax.swing.JPanel();
+        lblTituloEventos = new javax.swing.JLabel();
+        scrEventos = new javax.swing.JScrollPane();
+        lstEventos = new javax.swing.JList<>();
+        pnlIntervencion = new javax.swing.JPanel();
+        lblIntervencion = new javax.swing.JLabel();
+        cmbClima = new javax.swing.JComboBox<>();
+        btnCambiarClima = new javax.swing.JButton();
+        cmbEntidad = new javax.swing.JComboBox<>();
+        btnAgregar = new javax.swing.JButton();
+        pnlControl = new javax.swing.JPanel();
+        btnAvanzar = new javax.swing.JButton();
+        btnVerReporte = new javax.swing.JButton();
+        lblEstado = new javax.swing.JLabel();
+
+        setBackground(new java.awt.Color(245, 245, 245));
+
+        pnlIndTurno.setBackground(new java.awt.Color(255, 255, 255));
+        pnlIndTurno.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(220, 220, 220)));
+        lblTituloTurno.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        lblTituloTurno.setForeground(new java.awt.Color(107, 114, 128));
+        lblTituloTurno.setText("TURNO");
+
+        lblTurno.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        lblTurno.setForeground(new java.awt.Color(31, 41, 55));
+        lblTurno.setText("—");
+
+        javax.swing.GroupLayout pnlIndTurnoLayout = new javax.swing.GroupLayout(pnlIndTurno);
+        pnlIndTurno.setLayout(pnlIndTurnoLayout);
+        pnlIndTurnoLayout.setHorizontalGroup(
+            pnlIndTurnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlIndTurnoLayout.createSequentialGroup()
+                .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlIndTurnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTituloTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        pnlIndTurnoLayout.setVerticalGroup(
+            pnlIndTurnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlIndTurnoLayout.createSequentialGroup()
+                .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblTituloTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        pnlIndClima.setBackground(new java.awt.Color(255, 255, 255));
+        pnlIndClima.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(220, 220, 220)));
+        lblTituloClima.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        lblTituloClima.setForeground(new java.awt.Color(107, 114, 128));
+        lblTituloClima.setText("CLIMA");
+
+        lblClima.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        lblClima.setForeground(new java.awt.Color(31, 41, 55));
+        lblClima.setText("—");
+
+        javax.swing.GroupLayout pnlIndClimaLayout = new javax.swing.GroupLayout(pnlIndClima);
+        pnlIndClima.setLayout(pnlIndClimaLayout);
+        pnlIndClimaLayout.setHorizontalGroup(
+            pnlIndClimaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlIndClimaLayout.createSequentialGroup()
+                .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlIndClimaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTituloClima, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblClima, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        pnlIndClimaLayout.setVerticalGroup(
+            pnlIndClimaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlIndClimaLayout.createSequentialGroup()
+                .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblTituloClima, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblClima, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        pnlIndPlantas.setBackground(new java.awt.Color(255, 255, 255));
+        pnlIndPlantas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(220, 220, 220)));
+        lblTituloPlantas.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        lblTituloPlantas.setForeground(new java.awt.Color(107, 114, 128));
+        lblTituloPlantas.setText("PLANTAS");
+
+        lblPlantas.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        lblPlantas.setForeground(new java.awt.Color(31, 41, 55));
+        lblPlantas.setText("—");
+
+        javax.swing.GroupLayout pnlIndPlantasLayout = new javax.swing.GroupLayout(pnlIndPlantas);
+        pnlIndPlantas.setLayout(pnlIndPlantasLayout);
+        pnlIndPlantasLayout.setHorizontalGroup(
+            pnlIndPlantasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlIndPlantasLayout.createSequentialGroup()
+                .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlIndPlantasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTituloPlantas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblPlantas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        pnlIndPlantasLayout.setVerticalGroup(
+            pnlIndPlantasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlIndPlantasLayout.createSequentialGroup()
+                .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblTituloPlantas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblPlantas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        pnlIndConejos.setBackground(new java.awt.Color(255, 255, 255));
+        pnlIndConejos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(220, 220, 220)));
+        lblTituloConejos.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        lblTituloConejos.setForeground(new java.awt.Color(107, 114, 128));
+        lblTituloConejos.setText("CONEJOS");
+
+        lblConejos.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        lblConejos.setForeground(new java.awt.Color(31, 41, 55));
+        lblConejos.setText("—");
+
+        javax.swing.GroupLayout pnlIndConejosLayout = new javax.swing.GroupLayout(pnlIndConejos);
+        pnlIndConejos.setLayout(pnlIndConejosLayout);
+        pnlIndConejosLayout.setHorizontalGroup(
+            pnlIndConejosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlIndConejosLayout.createSequentialGroup()
+                .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlIndConejosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTituloConejos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblConejos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        pnlIndConejosLayout.setVerticalGroup(
+            pnlIndConejosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlIndConejosLayout.createSequentialGroup()
+                .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblTituloConejos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblConejos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        pnlIndLobos.setBackground(new java.awt.Color(255, 255, 255));
+        pnlIndLobos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(220, 220, 220)));
+        lblTituloLobos.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        lblTituloLobos.setForeground(new java.awt.Color(107, 114, 128));
+        lblTituloLobos.setText("LOBOS");
+
+        lblLobos.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        lblLobos.setForeground(new java.awt.Color(31, 41, 55));
+        lblLobos.setText("—");
+
+        javax.swing.GroupLayout pnlIndLobosLayout = new javax.swing.GroupLayout(pnlIndLobos);
+        pnlIndLobos.setLayout(pnlIndLobosLayout);
+        pnlIndLobosLayout.setHorizontalGroup(
+            pnlIndLobosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlIndLobosLayout.createSequentialGroup()
+                .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlIndLobosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTituloLobos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblLobos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        pnlIndLobosLayout.setVerticalGroup(
+            pnlIndLobosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlIndLobosLayout.createSequentialGroup()
+                .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblTituloLobos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblLobos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        pnlEntidades.setBackground(new java.awt.Color(255, 255, 255));
+        pnlEntidades.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(220, 220, 220)));
+        lblTituloEntidades.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        lblTituloEntidades.setForeground(new java.awt.Color(31, 41, 55));
+        lblTituloEntidades.setText("Entidades vivas");
+
+        tblEntidades.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        tblEntidades.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Tipo", "Nombre", "Edad", "Energía", "Estado"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblEntidades.setRowHeight(24);
+        tblEntidades.setShowVerticalLines(false);
+        tblEntidades.getTableHeader().setReorderingAllowed(false);
+
+        scrEntidades.setViewportView(tblEntidades);
+
+        lblSinSimulacion.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        lblSinSimulacion.setForeground(new java.awt.Color(107, 114, 128));
+        lblSinSimulacion.setText("No hay una simulación en curso.");
+
+        btnIrConfiguracion.setBackground(new java.awt.Color(255, 255, 255));
+        btnIrConfiguracion.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnIrConfiguracion.setForeground(new java.awt.Color(46, 125, 50));
+        btnIrConfiguracion.setText("Nueva simulación");
+        btnIrConfiguracion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(46, 125, 50)));
+        btnIrConfiguracion.setFocusPainted(false);
+        btnIrConfiguracion.addActionListener(this::btnIrConfiguracionActionPerformed);
+
+        javax.swing.GroupLayout pnlEntidadesLayout = new javax.swing.GroupLayout(pnlEntidades);
+        pnlEntidades.setLayout(pnlEntidadesLayout);
+        pnlEntidadesLayout.setHorizontalGroup(
+            pnlEntidadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlEntidadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlEntidadesLayout.createSequentialGroup()
+                    .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblTituloEntidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(pnlEntidadesLayout.createSequentialGroup()
+                    .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(scrEntidades, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+                    .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlEntidadesLayout.createSequentialGroup()
+                    .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblSinSimulacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(btnIrConfiguracion, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+        pnlEntidadesLayout.setVerticalGroup(
+            pnlEntidadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlEntidadesLayout.createSequentialGroup()
+                .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblTituloEntidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrEntidades, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+                .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlEntidadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(lblSinSimulacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnIrConfiguracion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        pnlEventos.setBackground(new java.awt.Color(255, 255, 255));
+        pnlEventos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(220, 220, 220)));
+        lblTituloEventos.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        lblTituloEventos.setForeground(new java.awt.Color(31, 41, 55));
+        lblTituloEventos.setText("Eventos del turno");
+
+        lstEventos.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lstEventos.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = {  };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+
+        scrEventos.setViewportView(lstEventos);
+
+        javax.swing.GroupLayout pnlEventosLayout = new javax.swing.GroupLayout(pnlEventos);
+        pnlEventos.setLayout(pnlEventosLayout);
+        pnlEventosLayout.setHorizontalGroup(
+            pnlEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlEventosLayout.createSequentialGroup()
+                    .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblTituloEventos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(pnlEventosLayout.createSequentialGroup()
+                    .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(scrEventos, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+                    .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+        pnlEventosLayout.setVerticalGroup(
+            pnlEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlEventosLayout.createSequentialGroup()
+                    .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblTituloEventos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(scrEventos, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+                    .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+
+        pnlIntervencion.setBackground(new java.awt.Color(255, 255, 255));
+        pnlIntervencion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(220, 220, 220)));
+        lblIntervencion.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lblIntervencion.setForeground(new java.awt.Color(55, 65, 81));
+        lblIntervencion.setText("Intervención — no disponible");
+
+        cmbClima.setBackground(new java.awt.Color(252, 252, 252));
+        cmbClima.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        cmbClima.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Soleado", "Lluvioso", "Sequía", "Invierno" }));
+
+        btnCambiarClima.setBackground(new java.awt.Color(255, 255, 255));
+        btnCambiarClima.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnCambiarClima.setForeground(new java.awt.Color(46, 125, 50));
+        btnCambiarClima.setText("Cambiar clima");
+        btnCambiarClima.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(46, 125, 50)));
+        btnCambiarClima.setFocusPainted(false);
+        btnCambiarClima.addActionListener(this::btnCambiarClimaActionPerformed);
+
+        cmbEntidad.setBackground(new java.awt.Color(252, 252, 252));
+        cmbEntidad.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        cmbEntidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Planta", "Conejo", "Lobo" }));
+
+        btnAgregar.setBackground(new java.awt.Color(255, 255, 255));
+        btnAgregar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnAgregar.setForeground(new java.awt.Color(46, 125, 50));
+        btnAgregar.setText("Agregar");
+        btnAgregar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(46, 125, 50)));
+        btnAgregar.setFocusPainted(false);
+        btnAgregar.addActionListener(this::btnAgregarActionPerformed);
+
+        javax.swing.GroupLayout pnlIntervencionLayout = new javax.swing.GroupLayout(pnlIntervencion);
+        pnlIntervencion.setLayout(pnlIntervencionLayout);
+        pnlIntervencionLayout.setHorizontalGroup(
+            pnlIntervencionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlIntervencionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlIntervencionLayout.createSequentialGroup()
+                    .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblIntervencion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(pnlIntervencionLayout.createSequentialGroup()
+                    .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbClima, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCambiarClima, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbEntidad, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        pnlIntervencionLayout.setVerticalGroup(
+            pnlIntervencionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlIntervencionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlIntervencionLayout.createSequentialGroup()
+                    .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblIntervencion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnlIntervencionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(cmbClima, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnCambiarClima, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbEntidad, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        pnlControl.setBackground(new java.awt.Color(255, 255, 255));
+        pnlControl.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(220, 220, 220)));
+        btnAvanzar.setBackground(new java.awt.Color(46, 125, 50));
+        btnAvanzar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        btnAvanzar.setForeground(new java.awt.Color(255, 255, 255));
+        btnAvanzar.setText("Avanzar turno");
+        btnAvanzar.setFocusPainted(false);
+        btnAvanzar.addActionListener(this::btnAvanzarActionPerformed);
+
+        btnVerReporte.setBackground(new java.awt.Color(255, 255, 255));
+        btnVerReporte.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnVerReporte.setForeground(new java.awt.Color(46, 125, 50));
+        btnVerReporte.setText("Ver reporte final");
+        btnVerReporte.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(46, 125, 50)));
+        btnVerReporte.setFocusPainted(false);
+        btnVerReporte.addActionListener(this::btnVerReporteActionPerformed);
+
+        javax.swing.GroupLayout pnlControlLayout = new javax.swing.GroupLayout(pnlControl);
+        pnlControl.setLayout(pnlControlLayout);
+        pnlControlLayout.setHorizontalGroup(
+            pnlControlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlControlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlControlLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(btnAvanzar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(pnlControlLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(btnVerReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        pnlControlLayout.setVerticalGroup(
+            pnlControlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlControlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlControlLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(btnAvanzar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVerReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        lblEstado.setBackground(new java.awt.Color(232, 240, 233));
+        lblEstado.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lblEstado.setForeground(new java.awt.Color(55, 65, 81));
+        lblEstado.setText(" ");
+        lblEstado.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 12, 0, 12));
+        lblEstado.setOpaque(true);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlIndTurno, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                    .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlIndClima, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                    .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlIndPlantas, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                    .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlIndConejos, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                    .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlIndLobos, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                    .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(pnlEntidades, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
+                        .addComponent(pnlIntervencion, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE))
+                    .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(pnlEventos, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(pnlControl, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(lblEstado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(pnlIndTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(pnlIndClima, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(pnlIndPlantas, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(pnlIndConejos, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(pnlIndLobos, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(pnlEntidades, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                        .addComponent(pnlEventos, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE))
+                    .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(pnlIntervencion, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(pnlControl, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnIrConfiguracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIrConfiguracionActionPerformed
+        if (controlador.haySimulacionEnCurso()) {
+            Object[] opciones = {"Sí, empezar nueva", "Cancelar"};
+            int respuesta = JOptionPane.showOptionDialog(this,
+                    "Se va a descartar la simulación actual y no se puede recuperar.",
+                    "¿Empezar una nueva simulación?", JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[1]);
+            if (respuesta != 0) {
+                return;
+            }
+        }
+        controlador.nuevaSimulacion();
+    }//GEN-LAST:event_btnIrConfiguracionActionPerformed
+
+    private void btnCambiarClimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarClimaActionPerformed
+        controlador.cambiarClima((String) cmbClima.getSelectedItem());
+    }//GEN-LAST:event_btnCambiarClimaActionPerformed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        controlador.agregarEntidad(((String) cmbEntidad.getSelectedItem()).toLowerCase());
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnAvanzarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvanzarActionPerformed
+        controlador.avanzarTurno();
+    }//GEN-LAST:event_btnAvanzarActionPerformed
+
+    private void btnVerReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerReporteActionPerformed
+        controlador.verReporte();
+    }//GEN-LAST:event_btnVerReporteActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnAvanzar;
+    private javax.swing.JButton btnCambiarClima;
+    private javax.swing.JButton btnIrConfiguracion;
+    private javax.swing.JButton btnVerReporte;
+    private javax.swing.JComboBox<String> cmbClima;
+    private javax.swing.JComboBox<String> cmbEntidad;
+    private javax.swing.JLabel lblClima;
+    private javax.swing.JLabel lblConejos;
+    private javax.swing.JLabel lblEstado;
+    private javax.swing.JLabel lblIntervencion;
+    private javax.swing.JLabel lblLobos;
+    private javax.swing.JLabel lblPlantas;
+    private javax.swing.JLabel lblSinSimulacion;
+    private javax.swing.JLabel lblTituloClima;
+    private javax.swing.JLabel lblTituloConejos;
+    private javax.swing.JLabel lblTituloEntidades;
+    private javax.swing.JLabel lblTituloEventos;
+    private javax.swing.JLabel lblTituloLobos;
+    private javax.swing.JLabel lblTituloPlantas;
+    private javax.swing.JLabel lblTituloTurno;
+    private javax.swing.JLabel lblTurno;
+    private javax.swing.JList<String> lstEventos;
+    private javax.swing.JPanel pnlControl;
+    private javax.swing.JPanel pnlEntidades;
+    private javax.swing.JPanel pnlEventos;
+    private javax.swing.JPanel pnlIndClima;
+    private javax.swing.JPanel pnlIndConejos;
+    private javax.swing.JPanel pnlIndLobos;
+    private javax.swing.JPanel pnlIndPlantas;
+    private javax.swing.JPanel pnlIndTurno;
+    private javax.swing.JPanel pnlIntervencion;
+    private javax.swing.JScrollPane scrEntidades;
+    private javax.swing.JScrollPane scrEventos;
+    private javax.swing.JTable tblEntidades;
     // End of variables declaration//GEN-END:variables
 }
