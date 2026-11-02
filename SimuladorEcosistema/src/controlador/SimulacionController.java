@@ -37,7 +37,7 @@ public class SimulacionController {
         if (dao.existeGuardado() && retomarGuardada()) {
             return;
         }
-        vista.getPanelSimulacion().mostrarSinSimulacion();
+        mostrarSinSimulacion();
         vista.mostrarPantallaConfiguracion();
         vista.mostrarEstadoApp("Configurá el ecosistema para empezar.");
     }
@@ -219,14 +219,22 @@ public class SimulacionController {
         return eco != null && !eco.simulacionTerminada();
     }
 
-    /** Descarta la simulación actual (la vista ya pidió confirmación si hacía falta). */
+    /** Botón o menú "Nueva simulación": si hay una en curso, primero pide confirmación. */
+    public void solicitarNuevaSimulacion() {
+        if (haySimulacionEnCurso() && !vista.confirmarNuevaSimulacion()) {
+            return;
+        }
+        nuevaSimulacion();
+    }
+
+    /** Descarta la simulación actual y vuelve a la configuración. */
     public void nuevaSimulacion() {
         eco = null;
         if (!dao.borrar()) {
             vista.mostrarError("No se pudo borrar el archivo de la simulación anterior.");
         }
         vista.getPanelConfiguracion().limpiarFormulario();
-        vista.getPanelSimulacion().mostrarSinSimulacion();
+        mostrarSinSimulacion();
         vista.mostrarPantallaConfiguracion();
         vista.mostrarEstadoApp("Configurá el ecosistema para empezar.");
     }
@@ -246,10 +254,10 @@ public class SimulacionController {
         vista.mostrarPantallaReporte();
     }
 
-    /** La vista lo usa para habilitar u ocultar el menú/botón de simulación. */
+    /** Menú "Ir a la simulación". */
     public void irASimulacion() {
         if (eco == null) {
-            vista.getPanelSimulacion().mostrarSinSimulacion();
+            mostrarSinSimulacion();
         } else {
             actualizarVistaSimulacion();
         }
@@ -257,6 +265,11 @@ public class SimulacionController {
     }
 
     //  AUXILIARES
+
+    private void mostrarSinSimulacion() {
+        vista.getPanelSimulacion().mostrarSinSimulacion();
+        vista.habilitarReporte(false);
+    }
 
     private void guardar() {
         if (!dao.guardar(eco)) {

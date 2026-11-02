@@ -64,6 +64,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     /** Habilita las opciones para ver el reporte (cuando la simulación terminó). */
     public void habilitarReporte(boolean habilitado) {
         panelSimulacion.habilitarReporte(habilitado);
+        mniVerReporte.setEnabled(habilitado);
+    }
+
+    /** Confirmación antes de descartar una simulación en curso (pantalla 05 del Figma). */
+    public boolean confirmarNuevaSimulacion() {
+        Object[] opciones = {"Sí, empezar nueva", "Cancelar"};
+        int respuesta = JOptionPane.showOptionDialog(this,
+                "Se va a descartar la simulación actual y no se puede recuperar.",
+                "¿Empezar una nueva simulación?", JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[1]);
+        return respuesta == 0;
     }
 
     // ---- Acceso a las pantallas (lo usa el controlador para entregarles datos) ----
@@ -92,6 +103,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         panelConfiguracion = new vista.PanelConfiguracion();
         panelSimulacion = new vista.PanelSimulacion();
         panelReporte = new vista.PanelReporte();
+        barMenu = new javax.swing.JMenuBar();
+        mnuConfiguracion = new javax.swing.JMenu();
+        mniNuevaSimulacion = new javax.swing.JMenuItem();
+        mniCargarGuardada = new javax.swing.JMenuItem();
+        sepSalir = new javax.swing.JPopupMenu.Separator();
+        mniSalir = new javax.swing.JMenuItem();
+        mnuSimulacion = new javax.swing.JMenu();
+        mniIrSimulacion = new javax.swing.JMenuItem();
+        mnuReportes = new javax.swing.JMenu();
+        mniVerReporte = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Simulador de Ecosistema");
@@ -102,12 +123,79 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         getContentPane().add(panelSimulacion, "simulacion");
         getContentPane().add(panelReporte, "reporte");
 
+        mnuConfiguracion.setText("Configuración");
+
+        mniNuevaSimulacion.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mniNuevaSimulacion.setText("Nueva simulación");
+        mniNuevaSimulacion.addActionListener(this::mniNuevaSimulacionActionPerformed);
+        mnuConfiguracion.add(mniNuevaSimulacion);
+
+        mniCargarGuardada.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mniCargarGuardada.setText("Cargar guardada");
+        mniCargarGuardada.addActionListener(this::mniCargarGuardadaActionPerformed);
+        mnuConfiguracion.add(mniCargarGuardada);
+        mnuConfiguracion.add(sepSalir);
+
+        mniSalir.setText("Salir");
+        mniSalir.addActionListener(this::mniSalirActionPerformed);
+        mnuConfiguracion.add(mniSalir);
+
+        barMenu.add(mnuConfiguracion);
+
+        mnuSimulacion.setText("Simulación");
+
+        mniIrSimulacion.setText("Ir a la simulación");
+        mniIrSimulacion.addActionListener(this::mniIrSimulacionActionPerformed);
+        mnuSimulacion.add(mniIrSimulacion);
+
+        barMenu.add(mnuSimulacion);
+
+        mnuReportes.setText("Reportes");
+
+        mniVerReporte.setText("Ver reporte final");
+        mniVerReporte.addActionListener(this::mniVerReporteActionPerformed);
+        mnuReportes.add(mniVerReporte);
+
+        barMenu.add(mnuReportes);
+
+        setJMenuBar(barMenu);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void mniNuevaSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniNuevaSimulacionActionPerformed
+        controlador.solicitarNuevaSimulacion();
+    }//GEN-LAST:event_mniNuevaSimulacionActionPerformed
+
+    private void mniCargarGuardadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCargarGuardadaActionPerformed
+        controlador.cargarSimulacionGuardada();
+    }//GEN-LAST:event_mniCargarGuardadaActionPerformed
+
+    private void mniSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniSalirActionPerformed
+        dispose();
+    }//GEN-LAST:event_mniSalirActionPerformed
+
+    private void mniIrSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniIrSimulacionActionPerformed
+        controlador.irASimulacion();
+    }//GEN-LAST:event_mniIrSimulacionActionPerformed
+
+    private void mniVerReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniVerReporteActionPerformed
+        controlador.verReporte();
+    }//GEN-LAST:event_mniVerReporteActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuBar barMenu;
+    private javax.swing.JMenuItem mniCargarGuardada;
+    private javax.swing.JMenuItem mniIrSimulacion;
+    private javax.swing.JMenuItem mniNuevaSimulacion;
+    private javax.swing.JMenuItem mniSalir;
+    private javax.swing.JMenuItem mniVerReporte;
+    private javax.swing.JMenu mnuConfiguracion;
+    private javax.swing.JMenu mnuReportes;
+    private javax.swing.JMenu mnuSimulacion;
     private vista.PanelConfiguracion panelConfiguracion;
     private vista.PanelReporte panelReporte;
     private vista.PanelSimulacion panelSimulacion;
+    private javax.swing.JPopupMenu.Separator sepSalir;
     // End of variables declaration//GEN-END:variables
 }

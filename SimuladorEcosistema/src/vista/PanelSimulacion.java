@@ -2,7 +2,6 @@ package vista;
 
 import controlador.SimulacionController;
 import java.util.List;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -578,17 +577,7 @@ public class PanelSimulacion extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIrConfiguracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIrConfiguracionActionPerformed
-        if (controlador.haySimulacionEnCurso()) {
-            Object[] opciones = {"Sí, empezar nueva", "Cancelar"};
-            int respuesta = JOptionPane.showOptionDialog(this,
-                    "Se va a descartar la simulación actual y no se puede recuperar.",
-                    "¿Empezar una nueva simulación?", JOptionPane.YES_NO_OPTION,
-                    JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[1]);
-            if (respuesta != 0) {
-                return;
-            }
-        }
-        controlador.nuevaSimulacion();
+        controlador.solicitarNuevaSimulacion();
     }//GEN-LAST:event_btnIrConfiguracionActionPerformed
 
     private void btnCambiarClimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarClimaActionPerformed
