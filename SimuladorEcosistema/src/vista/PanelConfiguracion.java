@@ -78,17 +78,17 @@ public class PanelConfiguracion extends javax.swing.JPanel {
         btnCargar = new javax.swing.JButton();
         lblEstado = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(245, 245, 245));
+        setBackground(new java.awt.Color(242, 245, 238));
 
         pnlFormulario.setBackground(new java.awt.Color(255, 255, 255));
-        pnlFormulario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(220, 220, 220)));
+        pnlFormulario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(213, 222, 209)));
 
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblTitulo.setForeground(new java.awt.Color(31, 41, 55));
+        lblTitulo.setForeground(new java.awt.Color(38, 53, 43));
         lblTitulo.setText("Nueva simulación");
 
         lblPlantas.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblPlantas.setForeground(new java.awt.Color(55, 65, 81));
+        lblPlantas.setForeground(new java.awt.Color(38, 53, 43));
         lblPlantas.setText("Plantas (5 a 30)");
 
         txtPlantas.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
@@ -98,7 +98,7 @@ public class PanelConfiguracion extends javax.swing.JPanel {
         lblErrorPlantas.setText(" ");
 
         lblConejos.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblConejos.setForeground(new java.awt.Color(55, 65, 81));
+        lblConejos.setForeground(new java.awt.Color(38, 53, 43));
         lblConejos.setText("Conejos (2 a 15)");
 
         txtConejos.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
@@ -108,7 +108,7 @@ public class PanelConfiguracion extends javax.swing.JPanel {
         lblErrorConejos.setText(" ");
 
         lblLobos.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblLobos.setForeground(new java.awt.Color(55, 65, 81));
+        lblLobos.setForeground(new java.awt.Color(38, 53, 43));
         lblLobos.setText("Lobos (1 a 5)");
 
         txtLobos.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
@@ -118,7 +118,7 @@ public class PanelConfiguracion extends javax.swing.JPanel {
         lblErrorLobos.setText(" ");
 
         lblClima.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblClima.setForeground(new java.awt.Color(55, 65, 81));
+        lblClima.setForeground(new java.awt.Color(38, 53, 43));
         lblClima.setText("Clima inicial");
 
         cmbClima.setBackground(new java.awt.Color(252, 252, 252));
@@ -126,7 +126,7 @@ public class PanelConfiguracion extends javax.swing.JPanel {
         cmbClima.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Soleado", "Lluvioso", "Sequía", "Invierno" }));
 
         lblTurnos.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblTurnos.setForeground(new java.awt.Color(55, 65, 81));
+        lblTurnos.setForeground(new java.awt.Color(38, 53, 43));
         lblTurnos.setText("Turnos totales (10 a 50)");
 
         txtTurnos.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
@@ -222,9 +222,9 @@ public class PanelConfiguracion extends javax.swing.JPanel {
                 .addGap(28, 28, 28))
         );
 
-        lblEstado.setBackground(new java.awt.Color(232, 240, 233));
+        lblEstado.setBackground(new java.awt.Color(232, 236, 228));
         lblEstado.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        lblEstado.setForeground(new java.awt.Color(55, 65, 81));
+        lblEstado.setForeground(new java.awt.Color(38, 53, 43));
         lblEstado.setText(" ");
         lblEstado.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 12, 0, 12));
         lblEstado.setOpaque(true);

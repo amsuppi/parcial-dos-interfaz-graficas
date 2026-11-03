@@ -130,16 +130,16 @@ public class PanelSimulacion extends javax.swing.JPanel {
         btnVerReporte = new javax.swing.JButton();
         lblEstado = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(245, 245, 245));
+        setBackground(new java.awt.Color(242, 245, 238));
 
         pnlIndTurno.setBackground(new java.awt.Color(255, 255, 255));
-        pnlIndTurno.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(220, 220, 220)));
+        pnlIndTurno.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(213, 222, 209)));
         lblTituloTurno.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
         lblTituloTurno.setForeground(new java.awt.Color(107, 114, 128));
         lblTituloTurno.setText("TURNO");
 
         lblTurno.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        lblTurno.setForeground(new java.awt.Color(31, 41, 55));
+        lblTurno.setForeground(new java.awt.Color(38, 53, 43));
         lblTurno.setText("—");
 
         javax.swing.GroupLayout pnlIndTurnoLayout = new javax.swing.GroupLayout(pnlIndTurno);
@@ -164,13 +164,13 @@ public class PanelSimulacion extends javax.swing.JPanel {
         );
 
         pnlIndClima.setBackground(new java.awt.Color(255, 255, 255));
-        pnlIndClima.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(220, 220, 220)));
+        pnlIndClima.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(213, 222, 209)));
         lblTituloClima.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
         lblTituloClima.setForeground(new java.awt.Color(107, 114, 128));
         lblTituloClima.setText("CLIMA");
 
         lblClima.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        lblClima.setForeground(new java.awt.Color(31, 41, 55));
+        lblClima.setForeground(new java.awt.Color(38, 53, 43));
         lblClima.setText("—");
 
         javax.swing.GroupLayout pnlIndClimaLayout = new javax.swing.GroupLayout(pnlIndClima);
@@ -195,13 +195,13 @@ public class PanelSimulacion extends javax.swing.JPanel {
         );
 
         pnlIndPlantas.setBackground(new java.awt.Color(255, 255, 255));
-        pnlIndPlantas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(220, 220, 220)));
+        pnlIndPlantas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(213, 222, 209)));
         lblTituloPlantas.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
         lblTituloPlantas.setForeground(new java.awt.Color(107, 114, 128));
         lblTituloPlantas.setText("PLANTAS");
 
         lblPlantas.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        lblPlantas.setForeground(new java.awt.Color(31, 41, 55));
+        lblPlantas.setForeground(new java.awt.Color(38, 53, 43));
         lblPlantas.setText("—");
 
         javax.swing.GroupLayout pnlIndPlantasLayout = new javax.swing.GroupLayout(pnlIndPlantas);
@@ -226,13 +226,13 @@ public class PanelSimulacion extends javax.swing.JPanel {
         );
 
         pnlIndConejos.setBackground(new java.awt.Color(255, 255, 255));
-        pnlIndConejos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(220, 220, 220)));
+        pnlIndConejos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(213, 222, 209)));
         lblTituloConejos.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
         lblTituloConejos.setForeground(new java.awt.Color(107, 114, 128));
         lblTituloConejos.setText("CONEJOS");
 
         lblConejos.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        lblConejos.setForeground(new java.awt.Color(31, 41, 55));
+        lblConejos.setForeground(new java.awt.Color(38, 53, 43));
         lblConejos.setText("—");
 
         javax.swing.GroupLayout pnlIndConejosLayout = new javax.swing.GroupLayout(pnlIndConejos);
@@ -257,13 +257,13 @@ public class PanelSimulacion extends javax.swing.JPanel {
         );
 
         pnlIndLobos.setBackground(new java.awt.Color(255, 255, 255));
-        pnlIndLobos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(220, 220, 220)));
+        pnlIndLobos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(213, 222, 209)));
         lblTituloLobos.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
         lblTituloLobos.setForeground(new java.awt.Color(107, 114, 128));
         lblTituloLobos.setText("LOBOS");
 
         lblLobos.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        lblLobos.setForeground(new java.awt.Color(31, 41, 55));
+        lblLobos.setForeground(new java.awt.Color(38, 53, 43));
         lblLobos.setText("—");
 
         javax.swing.GroupLayout pnlIndLobosLayout = new javax.swing.GroupLayout(pnlIndLobos);
@@ -288,9 +288,9 @@ public class PanelSimulacion extends javax.swing.JPanel {
         );
 
         pnlEntidades.setBackground(new java.awt.Color(255, 255, 255));
-        pnlEntidades.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(220, 220, 220)));
+        pnlEntidades.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(213, 222, 209)));
         lblTituloEntidades.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        lblTituloEntidades.setForeground(new java.awt.Color(31, 41, 55));
+        lblTituloEntidades.setForeground(new java.awt.Color(38, 53, 43));
         lblTituloEntidades.setText("Entidades vivas");
 
         tblEntidades.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
@@ -370,9 +370,9 @@ public class PanelSimulacion extends javax.swing.JPanel {
         );
 
         pnlEventos.setBackground(new java.awt.Color(255, 255, 255));
-        pnlEventos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(220, 220, 220)));
+        pnlEventos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(213, 222, 209)));
         lblTituloEventos.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        lblTituloEventos.setForeground(new java.awt.Color(31, 41, 55));
+        lblTituloEventos.setForeground(new java.awt.Color(38, 53, 43));
         lblTituloEventos.setText("Eventos del turno");
 
         lstEventos.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
@@ -410,9 +410,9 @@ public class PanelSimulacion extends javax.swing.JPanel {
         );
 
         pnlIntervencion.setBackground(new java.awt.Color(255, 255, 255));
-        pnlIntervencion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(220, 220, 220)));
+        pnlIntervencion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(213, 222, 209)));
         lblIntervencion.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        lblIntervencion.setForeground(new java.awt.Color(55, 65, 81));
+        lblIntervencion.setForeground(new java.awt.Color(38, 53, 43));
         lblIntervencion.setText("Intervención — no disponible");
 
         cmbClima.setBackground(new java.awt.Color(252, 252, 252));
@@ -475,7 +475,7 @@ public class PanelSimulacion extends javax.swing.JPanel {
         );
 
         pnlControl.setBackground(new java.awt.Color(255, 255, 255));
-        pnlControl.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(220, 220, 220)));
+        pnlControl.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(213, 222, 209)));
         btnAvanzar.setBackground(new java.awt.Color(46, 125, 50));
         btnAvanzar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         btnAvanzar.setForeground(new java.awt.Color(255, 255, 255));
@@ -516,9 +516,9 @@ public class PanelSimulacion extends javax.swing.JPanel {
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
-        lblEstado.setBackground(new java.awt.Color(232, 240, 233));
+        lblEstado.setBackground(new java.awt.Color(232, 236, 228));
         lblEstado.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        lblEstado.setForeground(new java.awt.Color(55, 65, 81));
+        lblEstado.setForeground(new java.awt.Color(38, 53, 43));
         lblEstado.setText(" ");
         lblEstado.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 12, 0, 12));
         lblEstado.setOpaque(true);
