@@ -60,6 +60,10 @@ SimuladorEcosistema/
 
 ## Diseño en Figma
 
+**Prototipo navegable en Figma:** [abrir el prototipo](https://www.figma.com/proto/A6aVaYlbkTBQwfPggUxc20/Untitled?node-id=0-1&t=XDWh9k15GAYrNyfi-1)
+
+Capturas de las pantallas del diseño:
+
 **01 · Configuración**
 
 ![01 · Configuración](docs/figma/01-configuracion.png)
