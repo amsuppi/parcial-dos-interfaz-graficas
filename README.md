@@ -16,7 +16,7 @@ interfaz basada en nuestro diseño de Figma.
 **Pasos**
 
 1. Clonar el repositorio:
-   `git clone https://github.com/amsuppi/parcial-uno-interfaz-graficas.git`
+   `git clone https://github.com/amsuppi/parcial-dos-interfaz-graficas.git`
 2. En NetBeans: **File → Open Project** y elegir la carpeta `SimuladorEcosistema`.
 3. Ejecutar con **Run Project (F6)**. La clase principal es `principal.Main`.
 
@@ -107,5 +107,13 @@ Usamos **Claude** (Anthropic) como asistente para planificar la división del tr
 capa cumpliera las reglas de la consigna, resolver problemas de configuración de NetBeans y la implementación de los métodos.
 
 ### Prompts utilizados
-Los prompts de cada integrante están en la misma carpeta de Google Drive que el video:
+Los prompts de cada integrante están en la carpeta [`docs/prompts`](docs/prompts) de este repositorio:
+
+| Integrante                 | Documento                                                                                                                  |
+| -------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| **Federico Manuel Calvar** | [prompts-fede.docx](docs/prompts/prompts-fede.docx)                                                                        |
+| **Luciana Vargas Bustos**  | [prompts-dao-luciana.docx](docs/prompts/prompts-dao-luciana.docx) · [Como-lo-armamos-luciana.docx](docs/prompts/Como-lo-armamos-luciana.docx) |
+| **Amalia Maribel Suppi**   | [prompts-maribel.docx](docs/prompts/prompts-maribel.docx)                                                                  |
+
+También están en la misma carpeta de Google Drive que el video:
 **[Video y prompts del grupo](https://drive.google.com/drive/folders/17-aPBSgjnVQNpufA2UPKMACngNUWNEKI?usp=sharing)**
