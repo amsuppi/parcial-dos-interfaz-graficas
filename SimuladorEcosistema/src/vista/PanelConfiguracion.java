@@ -76,6 +76,7 @@ public class PanelConfiguracion extends javax.swing.JPanel {
         lblErrorTurnos = new javax.swing.JLabel();
         btnIniciar = new javax.swing.JButton();
         btnCargar = new javax.swing.JButton();
+        lblLogo = new javax.swing.JLabel();
         lblEstado = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(242, 245, 238));
@@ -150,6 +151,8 @@ public class PanelConfiguracion extends javax.swing.JPanel {
         btnCargar.setFocusPainted(false);
         btnCargar.addActionListener(this::btnCargarActionPerformed);
 
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ecosistema.png"))); // NOI18N
+
         javax.swing.GroupLayout pnlFormularioLayout = new javax.swing.GroupLayout(pnlFormulario);
         pnlFormulario.setLayout(pnlFormularioLayout);
         pnlFormularioLayout.setHorizontalGroup(
@@ -157,7 +160,10 @@ public class PanelConfiguracion extends javax.swing.JPanel {
             .addGroup(pnlFormularioLayout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addGroup(pnlFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblTitulo)
+                    .addGroup(pnlFormularioLayout.createSequentialGroup()
+                        .addComponent(lblLogo)
+                        .addGap(12, 12, 12)
+                        .addComponent(lblTitulo))
                     .addGroup(pnlFormularioLayout.createSequentialGroup()
                         .addGroup(pnlFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblPlantas)
@@ -185,8 +191,10 @@ public class PanelConfiguracion extends javax.swing.JPanel {
         pnlFormularioLayout.setVerticalGroup(
             pnlFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlFormularioLayout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(lblTitulo)
+                .addGap(24, 24, 24)
+                .addGroup(pnlFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(lblLogo)
+                    .addComponent(lblTitulo))
                 .addGap(20, 20, 20)
                 .addGroup(pnlFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblPlantas)
@@ -271,6 +279,7 @@ public class PanelConfiguracion extends javax.swing.JPanel {
     private javax.swing.JLabel lblErrorTurnos;
     private javax.swing.JLabel lblEstado;
     private javax.swing.JLabel lblLobos;
+    private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblPlantas;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblTurnos;
