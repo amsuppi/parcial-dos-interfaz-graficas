@@ -41,32 +41,47 @@ public class SimulacionDAO {
                 Files.createDirectories(carpeta);
             }
             try (BufferedWriter out = Files.newBufferedWriter(archivo, StandardCharsets.UTF_8)) {
+                // Las líneas que empiezan con '#' son comentarios: solo ordenan el archivo y cargar() las ignora.
+                out.write("# SIMULADOR DE ECOSISTEMA - estado guardado (formato ETIQUETA;campo;campo...)");
+                out.newLine();
+
+                escribirSeccion(out, "CONFIGURACION", "CONFIG: turnoActual;turnosTotales;clima;ultimoTurnoIntervenido");
                 escribirLinea(out, "CONFIG", eco.getTurnoActual(), eco.getTurnosTotales(),
                         eco.getClimaActual().name(), eco.getUltimoTurnoIntervenido());
+
+                escribirSeccion(out, "CONTADORES", "CONTADORES: plantasCreadas;conejosCreados;lobosCreados");
                 escribirLinea(out, "CONTADORES", eco.getContadorPlantas(), eco.getContadorConejos(),
                         eco.getLobosCreados());
+
+                escribirSeccion(out, "ESTADISTICAS",
+                        "ESTADISTICAS: nacPlantas;nacConejos;muertesPlantas;muertesConejos;muertesLobos");
                 escribirLinea(out, "ESTADISTICAS", eco.getNacimientosPlantas(), eco.getNacimientosConejos(),
                         eco.getMuertesPlantas(), eco.getMuertesConejos(), eco.getMuertesLobos());
 
                 // Se guardan TODAS las entidades (también las muertas): el reporte las necesita.
+                escribirSeccion(out, "PLANTAS", "PLANTA: nombre;energia;edad;viva;tamanio");
                 for (Planta p : eco.getTodasLasPlantas()) {
                     escribirLinea(out, "PLANTA", p.getNombre(), p.getEnergia(), p.getEdad(),
                             p.isViva(), p.getTamanio());
                 }
+                escribirSeccion(out, "CONEJOS", "CONEJO: nombre;energia;edad;viva;velocidad;peso");
                 for (Conejo c : eco.getTodosLosConejos()) {
                     escribirLinea(out, "CONEJO", c.getNombre(), c.getEnergia(), c.getEdad(),
                             c.isViva(), c.getVelocidad(), c.getPeso());
                 }
+                escribirSeccion(out, "LOBOS", "LOBO: nombre;energia;edad;viva;velocidad;peso;exitosCaza");
                 for (Lobo l : eco.getTodosLosLobos()) {
                     escribirLinea(out, "LOBO", l.getNombre(), l.getEnergia(), l.getEdad(),
                             l.isViva(), l.getVelocidad(), l.getPeso(), l.getExitosCaza());
                 }
 
+                escribirSeccion(out, "HISTORIAL (un valor por turno jugado)", "ACTIVIDAD = eventos ocurridos en cada turno");
                 escribirLista(out, "ACTIVIDAD", eco.getEventosPorTurno());
                 escribirLista(out, "HIST_PLANTAS", eco.getHistorialPlantas());
                 escribirLista(out, "HIST_CONEJOS", eco.getHistorialConejos());
                 escribirLista(out, "HIST_LOBOS", eco.getHistorialLobos());
 
+                escribirSeccion(out, "EVENTOS DEL ULTIMO TURNO", "EVENTO: texto");
                 for (String evento : eco.getEventosTurno()) {
                     // Una línea por evento: se quitan saltos de línea por si el texto trajera alguno.
                     out.write("EVENTO" + SEP + evento.replace("\r", " ").replace("\n", " "));
@@ -153,8 +168,8 @@ public class SimulacionDAO {
         List<String> eventos = new ArrayList<>();
 
         for (String linea : lineas) {
-            if (linea.trim().isEmpty()) {
-                continue;
+            if (linea.trim().isEmpty() || linea.startsWith("#")) {
+                continue; // líneas en blanco y comentarios
             }
             int corte = linea.indexOf(SEP);
             String etiqueta = corte < 0 ? linea : linea.substring(0, corte);
@@ -315,6 +330,15 @@ public class SimulacionDAO {
     }
 
     // ---- Auxiliares de escritura ----
+
+    /** Escribe una línea en blanco y un encabezado comentado (#) que abre una sección del archivo. */
+    private void escribirSeccion(BufferedWriter out, String titulo, String columnas) throws IOException {
+        out.newLine();
+        out.write("# === " + titulo + " ===");
+        out.newLine();
+        out.write("# " + columnas);
+        out.newLine();
+    }
 
     /**
      * Escribe "ETIQUETA;v1;v2;...". String.valueOf deja los double con punto decimal
