@@ -1,6 +1,7 @@
 package dao;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -22,7 +23,6 @@ import modelo.Planta;
  * Formato: un registro por línea, "ETIQUETA;campo1;campo2;...".
  * Los eventos van al final de la línea EVENTO, así que pueden contener ';'.
  *
- * TODO (Etapa 2): implementar existeGuardado y borrar.
  */
 public class SimulacionDAO {
 
@@ -99,14 +99,19 @@ public class SimulacionDAO {
 
     /** true si el archivo existe y no está vacío. */
     public boolean existeGuardado() {
-        // TODO Etapa 2
-        return false;
+        File archivo = new File(RUTA);
+        return archivo.isFile() && archivo.length() > 0;
     }
 
     /** Borra el archivo (al empezar una simulación nueva). true si quedó borrado o no existía. */
     public boolean borrar() {
-        // TODO Etapa 2
-        return true;
+        Path archivo = Paths.get(RUTA);
+        try {
+            Files.deleteIfExists(archivo);
+            return true;
+        } catch (IOException | SecurityException e) {
+            return false;
+        }
     }
 
     // ---- Reconstrucción ----
